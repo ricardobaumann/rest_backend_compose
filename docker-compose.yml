@@ -1,0 +1,16 @@
+nginx:
+    build: ./load_balancer
+    links:
+        - ranking:ranking
+    ports:
+        - "80:80"
+ranking:
+    build: ./ranking
+    links:
+        - mongo
+    ports:
+        - "3000"
+mongo:
+    image: mongo
+    ports:
+        - "27017"
