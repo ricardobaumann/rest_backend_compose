@@ -2,10 +2,17 @@ nginx:
     build: ./load_balancer
     links:
         - ranking:ranking
+        - ranking2:ranking2
         - mobile:mobile
     ports:
         - "80:80"
 ranking:
+    build: ./ranking
+    links:
+        - mongo
+    ports:
+        - "3000"
+ranking2:
     build: ./ranking
     links:
         - mongo
