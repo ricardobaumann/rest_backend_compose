@@ -4,6 +4,7 @@ nginx:
         - ranking:ranking
         - ranking2:ranking2
         - mobile:mobile
+        - mobile2:mobile2
     ports:
         - "80:80"
 ranking:
@@ -19,6 +20,10 @@ ranking2:
     ports:
         - "3000"
 mobile:
+    build: ./mobile
+    ports:
+        - "2000"
+mobile2:
     build: ./mobile
     ports:
         - "2000"
