@@ -5,6 +5,7 @@ nginx:
         - ranking2:ranking2
         - mobile:mobile
         - mobile2:mobile2
+        - auth:auth
     ports:
         - "80:80"
 ranking:
@@ -31,3 +32,7 @@ mongo:
     image: mongo
     ports:
         - "27017"
+auth:
+    build: ./auth
+    ports:
+        - "3000"
