@@ -7,6 +7,6 @@ RUN git clone https://github.com/ricardobaumann/who_are_you
 WORKDIR who_are_you
 RUN git fetch --all
 RUN git checkout url_redirect
-RUN RAILS_ENV=production bundle install
+RUN bundle install
 EXPOSE 3000
-CMD bundle install && rake db:migrate && rails s -b 0.0.0.0
+CMD bundle install && rake db:migrate && rake db:seed && rails s -b 0.0.0.0
