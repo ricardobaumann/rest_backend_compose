@@ -9,4 +9,4 @@ RUN git fetch --all
 RUN git checkout url_redirect
 RUN RAILS_ENV=production bundle install
 EXPOSE 3000
-CMD rails s
+CMD bundle install && rake db:migrate && rails s -b 0.0.0.0

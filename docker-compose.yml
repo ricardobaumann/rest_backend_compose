@@ -3,8 +3,6 @@ nginx:
     links:
         - ranking:ranking
         - ranking2:ranking2
-        - mobile:mobile
-        - mobile2:mobile2
         - auth:auth
     ports:
         - "80:80"
@@ -20,14 +18,6 @@ ranking2:
         - mongo
     ports:
         - "3000"
-mobile:
-    build: ./mobile
-    ports:
-        - "2000"
-mobile2:
-    build: ./mobile
-    ports:
-        - "2000"
 mongo:
     image: mongo
     ports:
