@@ -9,4 +9,4 @@ RUN git fetch --all
 RUN git checkout url_redirect
 RUN bundle install
 EXPOSE 3000
-CMD bundle install && rake db:migrate && rake db:seed && rails s -b 0.0.0.0
+CMD git pull origin url_redirect && bundle install && rake db:migrate && rake db:seed && rails s -b 0.0.0.0
