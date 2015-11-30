@@ -1,0 +1,65 @@
+server {
+
+	error_log      /var/log/nginx/error.log;
+	access_log     /var/log/nginx/access.log combined;
+	rewrite_log    on;
+
+	#listen 80;
+	#listen [::]:80 default_server ipv6only=on;
+	listen 2000;
+	listen [::]:2000 default_server ipv6only=on;
+	#listen 443 ssl;
+	#listen [::]:443 default_server ipv6only=on;
+
+	server_name mesalva.com;
+	#ssl_certificate /etc/nginx/ssl/www.mesalva.com.crt;
+	#ssl_certificate_key /etc/nginx/ssl/www.mesalva.com.key;
+
+	server_name	localhost;
+
+	root	/var/www/public;
+	index index.php index.html index.htm;
+
+	charset		utf-8;
+
+	client_max_body_size 5M;
+
+	underscores_in_headers on;
+
+	location / {
+		try_files $uri $uri/ /index.php?_url=$uri&$args; #api
+		rewrite ^(/)$ https://mesalva.com/ permanent;
+	}
+
+	location ~ \.php$ {
+		#try_files  $uri @redirect;
+
+		fastcgi_split_path_info ^(.+\.php)(/.+)$;
+		fastcgi_pass unix:/var/run/php5-fpm.sock;
+		fastcgi_index index.php;
+		fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+		include fastcgi_params;
+
+		fastcgi_param PATH_INFO          $request_uri;
+		fastcgi_param SCRIPT_TRANSLATED  $document_root$fastcgi_path_info;
+
+		#		HMAC
+		fastcgi_param API_ID    $http_api_id;
+		fastcgi_param API_TIME  $http_api_time;
+		fastcgi_param API_HASH  $http_api_hash;
+		fastcgi_param USER_ID   $http_user_id;
+
+		#		Cabeçalhos para log
+		fastcgi_param APP_VERSION  $http_app_version;
+		fastcgi_param DEVICE_OS    $http_device_os;
+		fastcgi_param OS_VERSION   $http_os_version;
+		fastcgi_param MODEL_NAME   $http_model_name;
+
+		#		fastcgi_buffers		256 16k;
+	}
+
+	#location @redirect {
+	#	return 301 https://mesalva.com/;
+	#}
+
+}
