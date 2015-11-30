@@ -1,5 +1,8 @@
-# backend_docker_compose
-The backend API's docker compose. 
+# rest backend compose
+Example of a docker compose structure combining
+1. Backend rest services
+2. Load balancing
+3. Dummy Authentication and authorization services
 
 ## Setup
 1. Install docker (http://docs.docker.com/engine/installation/)
