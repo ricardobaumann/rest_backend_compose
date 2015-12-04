@@ -15,6 +15,8 @@ Example of a docker compose structure combining
 <strong>
 sudo docker exec -t backenddockercompose_ranking_1 ps aux | grep 'unicorn' | awk '{print $2}' | xargs sudo kill -QUIT
 
+sudo docker kill ranking
+
 sudo docker-compose rm ranking
 
 sudo docker-compose build ranking
