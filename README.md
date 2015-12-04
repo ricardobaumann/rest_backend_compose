@@ -12,7 +12,7 @@ Example of a docker compose structure combining
 ## Usage
 1. To update containers, run
 
-
+<strong>
 sudo docker exec -t backenddockercompose_ranking_1 ps aux | grep 'unicorn' | awk '{print $2}' | xargs sudo kill -QUIT
 
 sudo docker-compose rm ranking
@@ -20,5 +20,6 @@ sudo docker-compose rm ranking
 sudo docker-compose build ranking
 
 sudo docker-compose up ranking
+</strong>
 
 and so on for the other containers
