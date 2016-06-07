@@ -1,29 +1,30 @@
 nginx:
     build: ./load_balancer
     links:
-        - ranking:ranking
-        - ranking2:ranking2
+        - home_on_rails:home_on_rails
         - auth:auth
-        - mobile:mobile
-        - mobile2:mobile2
     ports:
         - "80:80"
-ranking:
-    build: ./ranking
+home_on_rails:
+    build: ./rails
     links:
-        - mongo
+        - db
     ports:
         - "3000"
-ranking2:
-    build: ./ranking
-    links:
-        - mongo
-    ports:
-        - "3000"
-mongo:
-    image: mongo
-    ports:
-        - "27017"
+    environment:
+        - ENV_NAME=production
+        - repo=http://github.com/ricardobaumann/home_on_rails
+        - name=home_on_rails
+        - branch=develop
+db:
+    image: mysql/mysql-server
+    expose:
+     - 3306
+    environment:
+      MYSQL_DATABASE: home_on_rails
+      MYSQL_USER: home_on_rails
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
 auth:
     build: ./auth
     ports:
